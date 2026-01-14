@@ -1,0 +1,147 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #F0FAFF;
+    font-family: "Poppins", sans-serif;
+
+    /* FULLSCREEN + TENGAH */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+/* Efek langit bergerak pelan */
+@keyframes skyMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 200px; }
+}
+
+#loading-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* TEPAT TENGAH */
+    text-align: center;
+}
+
+/* LOGO BERGUNCANG IMUT */
+#cute-icon {
+  width: 150px;
+  animation: wiggle 1.6s infinite ease-in-out;
+  filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.1));
+}
+
+/* SPARKLE IMUT */
+.sparkle, .sparkle2 {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: radial-gradient(circle, #ffffff 40%, #d8f3ff 70%, transparent 100%);
+  border-radius: 50%;
+  animation: sparkle 2s infinite ease-in-out;
+  opacity: 0.85;
+}
+
+.sparkle {
+  left: 18%;
+  top: 0%;
+}
+
+.sparkle2 {
+  right: 18%;
+  top: 8%;
+  animation-delay: .9s;
+}
+
+/* TEKS LOADING */
+.loading-text {
+  color: #006FDB;
+  font-size: 24px;
+  margin-top: 20px;
+  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* LOADING BAR SLIME */
+.loading-bar {
+  width: 320px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 3px solid #6EC7FF;
+  margin: 18px auto;
+  overflow: hidden;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.15);
+}
+
+.loading-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #8EDBFF, #4ABEFF);
+  animation: pulse 1.3s infinite;
+  transition: width .3s;
+  border-radius: 10px;
+}
+
+/* TEKS PEMBUKA */
+.small-info {
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+/* TOMBOL MULAI IMUT */
+#start-btn {
+  margin-top: 12px;
+  background: #4AC3FF;
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  font-size: 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: 0.2s;
+  animation: bounce 1.3s infinite;
+}
+
+#start-btn:hover {
+  background: #30AFFF;
+  transform: scale(1.1);
+}
+
+/* ANIMASI */
+@keyframes wiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes sparkle {
+  0% { transform: scale(0.7); opacity: 0.5; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.7); opacity: 0.5; }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+/* TOMBOL MANTUL */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
