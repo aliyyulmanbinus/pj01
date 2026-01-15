@@ -1,57 +1,44 @@
 {
-  "github": {
-    "silent": true
-  },
   "headers": [
     {
-      "source": "/Build/(.*)\\.wasm",
+      "source": "/Build/(.*).wasm.gz",
       "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/wasm"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
+        { "key": "Content-Type", "value": "application/wasm" },
+        { "key": "Content-Encoding", "value": "gzip" }
       ]
     },
     {
-      "source": "/Build/(.*)\\.data",
+      "source": "/Build/(.*).data.gz",
       "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/octet-stream"
-        }
+        { "key": "Content-Encoding", "value": "gzip" }
       ]
     },
     {
-      "source": "/Build/(.*)\\.js",
+      "source": "/Build/(.*).js.gz",
       "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/javascript"
-        }
+        { "key": "Content-Type", "value": "application/javascript" },
+        { "key": "Content-Encoding", "value": "gzip" }
       ]
     },
     {
-      "source": "/Build/(.*)\\.wasm\\.gz",
+      "source": "/Build/(.*).wasm.br",
       "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/wasm"
-        },
-        {
-          "key": "Content-Encoding",
-          "value": "gzip"
-        }
+        { "key": "Content-Type", "value": "application/wasm" },
+        { "key": "Content-Encoding", "value": "br" }
       ]
-    }
-  ],
-  "rewrites": [
+    },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/Build/(.*).data.br",
+      "headers": [
+        { "key": "Content-Encoding", "value": "br" }
+      ]
+    },
+    {
+      "source": "/Build/(.*).js.br",
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript" },
+        { "key": "Content-Encoding", "value": "br" }
+      ]
     }
   ]
 }
