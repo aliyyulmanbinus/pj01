@@ -1,0 +1,17 @@
+{
+  "headers": [
+    {
+      "source": "/Build/(.*)\\.wasm",
+      "headers": [
+        { "key": "Content-Type", "value": "application/wasm" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/Build/(.*)",
+      "destination": "/Build/$1"
+    }
+  ]
+}
