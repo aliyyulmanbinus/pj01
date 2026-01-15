@@ -1,16 +1,31 @@
 {
   "headers": [
     {
-      "source": "/Build/(.*)\\.wasm",
+      "source": "/Build/(.*).wasm",
       "headers": [
-        { "key": "Content-Type", "value": "application/wasm" }
+        {
+          "key": "Content-Type",
+          "value": "application/wasm"
+        }
       ]
-    }
-  ],
-  "routes": [
+    },
     {
-      "src": "^/Build/(.*)$",
-      "dest": "/Build/$1"
+      "source": "/Build/(.*).data",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/octet-stream"
+        }
+      ]
+    },
+    {
+      "source": "/Build/(.*).js",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        }
+      ]
     }
   ]
 }
