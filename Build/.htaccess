@@ -1,0 +1,60 @@
+# ========== MIME TYPES ==========
+AddType application/wasm .wasm
+AddType application/javascript .js
+AddType application/json .json
+
+# ========== Serve precompressed Brotli (.br) or gzip (.gz) ==========
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Jika browser mendukung br dan file .br ada -> rewrite request ke file.br
+  RewriteCond %{HTTP:Accept-Encoding} br
+  RewriteCond %{REQUEST_FILENAME}.br -f
+  RewriteRule ^(.*)$ $1.br [L]
+
+  # Kalau tidak ada br tapi browser mendukung gzip dan file .gz ada -> rewrite ke file.gz
+  RewriteCond %{HTTP:Accept-Encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}.gz -f
+  RewriteRule ^(.*)$ $1.gz [L]
+</IfModule>
+
+# ========== Set proper headers for precompressed files ==========
+<IfModule mod_headers.c>
+  <FilesMatch "\.br$">
+    Header set Content-Encoding br
+    Header set Vary "Accept-Encoding"
+
+    Header set Content-Type "application/wasm" env=is_wasm
+    # Jika file .js.br -> Content-Type javascript
+    SetEnvIf Request_URI "\.js\.br$" is_js
+    Header set Content-Type "application/javascript" env=is_js
+    # Jika file .json.br -> Content-Type json
+    SetEnvIf Request_URI "\.json\.br$" is_json
+    Header set Content-Type "application/json" env=is_json
+  </FilesMatch>
+
+  <FilesMatch "\.gz$">
+    Header set Content-Encoding gzip
+    Header set Vary "Accept-Encoding"
+    SetEnvIf Request_URI "\.wasm\.gz$" is_wasm_gz
+    Header set Content-Type "application/wasm" env=is_wasm_gz
+    SetEnvIf Request_URI "\.js\.gz$" is_js_gz
+    Header set Content-Type "application/javascript" env=is_js_gz
+    SetEnvIf Request_URI "\.json\.gz$" is_json_gz
+    Header set Content-Type "application/json" env=is_json_gz
+  </FilesMatch>
+</IfModule>
+
+# ========== Caching for build assets ==========
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Cache long for build outputs
+  ExpiresByType application/wasm "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType application/json "access plus 1 year"
+</IfModule>
+
+# ========== Optional: security / CORS ==========
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+</IfModule>
